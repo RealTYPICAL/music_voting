@@ -1,0 +1,14 @@
+{
+  "name": "mdns_start",
+  "version": "1.0.0",
+  "description": "mdns",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "James Tooley",
+  "license": "ISC",
+  "dependencies": {
+    "mdns": "^2.3.4"
+  }
+}

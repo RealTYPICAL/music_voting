@@ -9,9 +9,11 @@
   "author": "James Tooley",
   "license": "ISC",
   "dependencies": {
-    "bonjour": "^3.5.0"
+    "bonjour": "^3.5.0",
+    "request": "^2.83.0"
   },
   "devDependencies": {
-    "@types/bonjour": "^3.5.5"
+    "@types/bonjour": "^3.5.5",
+    "@types/request": "^2.0.9"
   }
 }

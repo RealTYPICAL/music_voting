@@ -12,7 +12,7 @@ bonjour.find({ type: "music-voting" }, (service: bonjourModule.Service) => {
 function doAction(address: string, port: number) {
     console.log("What did the address end up being: " + address);
     console.log("and the port is: " + port);
-    const req = request(`http://${address}:${port}`, (error: any, response: request.RequestResponse, body: any) => {
+    const req = request(`http://${address}:${port}/hello`, (error: any, response: request.RequestResponse, body: any) => {
         console.log("What did i get back " + response);
         console.log("what is the body: " + body);
         process.exit(0);

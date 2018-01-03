@@ -1,0 +1,4 @@
+
+class Spotify implements IMusic{
+    
+}

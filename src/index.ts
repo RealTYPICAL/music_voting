@@ -1,6 +1,7 @@
 import * as bonjourModule from "bonjour";
 import * as express from "express";
 import * as http from "http";
+import { MusicFactory } from "./musicFactory";
 
 const app = express();
 const bonjour = bonjourModule();

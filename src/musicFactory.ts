@@ -1,5 +1,6 @@
+import { Spotify } from "./spotify";
 
-class MusicFactory {
+export class MusicFactory {
 
     /**
      * createMusicService

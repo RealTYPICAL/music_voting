@@ -17,3 +17,5 @@ extendApi(app);
 app.listen(PORT);
 
 bonjour.publish({ name: "Music Voting", type: "music-voting", port: PORT });
+
+console.log("Now setup.");

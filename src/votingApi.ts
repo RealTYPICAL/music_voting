@@ -8,9 +8,9 @@ export function extendApi(app: Express) {
     const entryFactory = new EntryFactory();
 
     app.put("/submitEntry", (req, res) => {
-        const entry = req.body.entry;
-        const url = new URL(entry);
-        voting.submitEntry(entryFactory.createEntry(url));
+        //TODO: Need to handle various data types.
+        console.log("what's happening " + req.body);
+        voting.submitEntry(entryFactory.createEntry(req.body));
     });
 
     app.post("/submitVote", (req, res) => {
@@ -20,6 +20,7 @@ export function extendApi(app: Express) {
     });
 
     app.get("/getCurrentVote", (req, res) => {
+        console.log("Getting current vote " + voting.getCurrentQueue().length);
         res.send(JSON.stringify(voting.getCurrentQueue()));
     });
 }

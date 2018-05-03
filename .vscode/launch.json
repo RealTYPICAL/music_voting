@@ -11,7 +11,8 @@
             "program": "${workspaceFolder}\\out\\test\\test.js",
             "outFiles": [
                 "${workspaceFolder}/out/test/**/*.js"
-            ]
+            ],
+            "sourceMaps": true
         },
         {
             "type": "node",
@@ -20,7 +21,8 @@
             "program": "${workspaceFolder}\\out\\src\\index.js",
             "outFiles": [
                 "${workspaceFolder}/out/src/**/*.js"
-            ]
+            ],
+            "sourceMaps": true
         }
     ],
     "compounds": [

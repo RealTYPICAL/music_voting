@@ -1,12 +1,17 @@
 import * as bonjourModule from "bonjour";
 import * as http from "http";
 import * as request from "request";
+import * as _ from "underscore";
+import * as ip from "ip";
 const bonjour = bonjourModule();
 
 // browse for all http services
 bonjour.find({ type: "music-voting" }, (service: bonjourModule.Service) => {
-    console.log("Found an HTTP server:", service);
-    doAction(service.referer.address, service.port);
+    console.log("Found an HTTP server: ", service);
+    const address =_.find(service.addresses, e => ip.isV4Format(e));
+    if(address){
+        doAction(address, service.port);
+    }
 });
 
 function doAction(address: string, port: number) {
@@ -17,7 +22,7 @@ function doAction(address: string, port: number) {
     //     console.log("what is the body: " + body);
     //     process.exit(0);
     // });
-    request.put(`http://${address}:${port}/submitEntry`, { body: "www.google.com" }, (error: any, response: request.RequestResponse, body: any) => {
+    request.post(`http://${address}:${port}/submitEntry`, { form: "www.google.com" }, (error: any, response: request.RequestResponse, body: any) => {
         console.log("Success... " + error);
         request(`http://${address}:${port}/getCurrentVote`, (error: any, response: request.RequestResponse, body: any) => {
             console.log("Success... " + body);

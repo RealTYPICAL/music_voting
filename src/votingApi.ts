@@ -7,10 +7,12 @@ export function extendApi(app: Express) {
     const voting = new Voting();
     const entryFactory = new EntryFactory();
 
-    app.put("/submitEntry", (req, res) => {
+    app.post("/submitEntry", (req, res) => {
         //TODO: Need to handle various data types.
-        console.log("what's happening " + req.body);
-        voting.submitEntry(entryFactory.createEntry(req.body));
+        if(req.body && req.body.entry){
+            voting.submitEntry(entryFactory.createEntry(req.body.entry));
+        }
+        res.send();
     });
 
     app.post("/submitVote", (req, res) => {
@@ -31,7 +33,7 @@ class Voting<T> {
     
     constructor(){
     }
-
+    
 
     public submitVote(vote: Vote): void {
         this.currentQueue.filter(e => e.getID() === vote.getId()).forEach(e => vote.isUpvote() ? e.upvote() : e.downvote());

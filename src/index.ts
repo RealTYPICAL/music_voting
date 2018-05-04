@@ -8,6 +8,9 @@ const bonjour = bonjourModule();
 
 const PORT = 3000;
 
+app.use(express.json());       // to support JSON-encoded bodies
+// app.use(express.urlencoded()); // to support URL-encoded bodies
+
 app.get("/hello", (req, res) => {
     res.send("hello world");
 });

@@ -1,6 +1,6 @@
 import { Express } from "express";
-import { Vote } from "./vote";
 import { IEntry, EntryFactory } from "./entry";
+import { Vote } from "./vote";
 
 export function extendApi(app: Express) {
 
@@ -16,9 +16,9 @@ export function extendApi(app: Express) {
     });
 
     app.post("/submitVote", (req, res) => {
-        const jsonVote = req.body.vote;
-        const vote : Vote = JSON.parse(jsonVote);
-        voting.submitVote(vote);
+        const jsonVote = req.body as Vote;
+        voting.submitVote(jsonVote);
+        res.send();
     });
 
     app.get("/getCurrentVote", (req, res) => {
@@ -36,7 +36,7 @@ class Voting<T> {
     
 
     public submitVote(vote: Vote): void {
-        this.currentQueue.filter(e => e.getID() === vote.getId()).forEach(e => vote.isUpvote() ? e.upvote() : e.downvote());
+        this.currentQueue.filter(e => e.getID() === vote.id).forEach(e => vote.isUpvote ? e.upvote() : e.downvote());
         this.currentQueue.sort((a, b) => a.getScore() - b.getScore());
     }
 

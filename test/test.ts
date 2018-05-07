@@ -3,6 +3,9 @@ import * as http from "http";
 import * as request from "request";
 import * as _ from "underscore";
 import * as ip from "ip";
+import { IEntry } from "../src/entry";
+import { Entry } from "../src/model/entry";
+import { Vote } from "../src/vote";
 const bonjour = bonjourModule();
 
 // browse for all http services
@@ -15,24 +18,28 @@ bonjour.find({ type: "music-voting" }, (service: bonjourModule.Service) => {
 });
 
 function doAction(address: string, port: number) {
-    // console.log("What did the address end up being: " + address);
-    // console.log("and the port is: " + port);
-    // const req = request(`http://${address}:${port}/hello`, (error: any, response: request.RequestResponse, body: any) => {
-    //     console.log("What did i get back " + response);
-    //     console.log("what is the body: " + body);
-    //     process.exit(0);
-    // });
+    const newLocal = `http://${address}:${port}`;
     var options = {
-        uri: `http://${address}:${port}/submitEntry`,
         json: {
             "entry": "http://www.google.com/"
         }
     };
 
-    request.post(options, (error: any, response: request.RequestResponse, body: any) => {
+    request.post(`${newLocal}/submitEntry`, options, (error: any, response: request.RequestResponse, body: any) => {
         console.log("Success... " + error);
-        request(`http://${address}:${port}/getCurrentVote`, (error: any, response: request.RequestResponse, body: any) => {
+        request(`${newLocal}/getCurrentVote`, (error: any, response: request.RequestResponse, body: any) => {
             console.log("Success... " + body);
+            const something = JSON.parse(body);
+            const entry = _.first(something) as Entry<string>;
+            const vote : Vote = {
+                id: entry.id,
+                isUpvote: true
+            };
+            request.post(`${newLocal}/submitVote`, { json: vote }, (error: any, response: request.RequestResponse, body: any) => {
+                request(`${newLocal}/getCurrentVote`, (error: any, response: request.RequestResponse, body: any) => {
+                    console.log('Finally? ' + body);
+                });
+            });
         });
     });
 }

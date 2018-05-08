@@ -9,15 +9,17 @@ export function extendApi(app: Express) {
 
     app.post("/submitEntry", (req, res) => {
         //TODO: Need to handle various data types.
-        if(req.body && req.body.entry){
-            voting.submitEntry(entryFactory.createEntry(req.body.entry));
+        if(req.body && req.body.entry && req.connection && req.connection.remoteAddress){
+            voting.submitEntry(entryFactory.createEntry(req.body.entry, req.connection.remoteAddress));
         }
         res.send();
     });
 
     app.post("/submitVote", (req, res) => {
         const jsonVote = req.body as Vote;
-        voting.submitVote(jsonVote);
+        if(req.connection && req.connection.remoteAddress){
+            voting.submitVote(jsonVote, req.connection.remoteAddress);
+        }
         res.send();
     });
 
@@ -35,8 +37,8 @@ class Voting<T> {
     }
     
 
-    public submitVote(vote: Vote): void {
-        this.currentQueue.filter(e => e.getID() === vote.id).forEach(e => vote.isUpvote ? e.upvote() : e.downvote());
+    public submitVote(vote: Vote, ip: string): void {
+        this.currentQueue.filter(e => e.getID() === vote.id).forEach(e => vote.isUpvote ? e.upvote(ip) : e.downvote(ip));
         this.currentQueue.sort((a, b) => a.getScore() - b.getScore());
     }
 

@@ -26,7 +26,6 @@ function doAction(address: string, port: number) {
     };
 
     request.post(`${newLocal}/submitEntry`, options, (error: any, response: request.RequestResponse, body: any) => {
-        console.log("Success... " + error);
         request(`${newLocal}/getCurrentVote`, (error: any, response: request.RequestResponse, body: any) => {
             console.log("Success... " + body);
             const something = JSON.parse(body);
@@ -38,6 +37,7 @@ function doAction(address: string, port: number) {
             request.post(`${newLocal}/submitVote`, { json: vote }, (error: any, response: request.RequestResponse, body: any) => {
                 request(`${newLocal}/getCurrentVote`, (error: any, response: request.RequestResponse, body: any) => {
                     console.log('Finally? ' + body);
+                    process.exit(0);
                 });
             });
         });

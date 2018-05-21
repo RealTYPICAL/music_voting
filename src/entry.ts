@@ -19,51 +19,65 @@ export class EntryFactory<T> {
     }
 }
 
+export interface PlainEntry<T> {
+    url: T;
+    id: number;
+    upvotes: string[];
+    downvotes: string[];
+    score: number;
+}
+
 export interface IEntry<T> {
     getUrl(): T;
     getID(): number;
     upvote(ip: string): void;
     downvote(ip: string): void;
+    getUpvotes(): string[];
+    getDownvotes(): string[];
     getScore(): number;
 }
 
 class Entry<T> implements IEntry<T> {
 
-    private score: number = 0;
-    private currentVotes: string[] = [];
+    private upVotes: Set<string> = new Set();
+    private downvotes: Set<string> = new Set();
 
     constructor(private readonly url: T, private readonly id: number) {
     }
 
     getScore(): number {
-        return this.score;
+        return this.upVotes.size - this.downvotes.size;
     }
 
-    upvote(ip: string): void {
-        if (!_.contains(this.currentVotes, ip)) {
-            this.currentVotes.push(ip);
-            this.score++;
-        }
+    public upvote(ip: string): void {
+        this.upVotes.add(ip);
+        this.downvotes.delete(ip);
     }
 
-    downvote(ip: string): void {
-        if (!_.contains(this.currentVotes, ip)) {
-            this.currentVotes.push(ip);
-            this.score--;
-        }
+    public downvote(ip: string): void {
+        this.downvotes.add(ip);
+        this.upVotes.delete(ip);
     }
 
     /**
      * getUrl
      */
-    public getUrl() {
+    public getUrl(): T {
         return this.url;
+    }
+
+    public getUpvotes(): string[] {
+        return Array.from(this.upVotes);
+    }
+
+    public getDownvotes(): string[] {
+        return Array.from(this.downvotes);
     }
 
     /**
      * getID
      */
-    public getID() {
+    public getID(): number {
         return this.id;
     }
 }

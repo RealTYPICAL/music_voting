@@ -193,9 +193,9 @@ body-parser@1.18.2:
     raw-body "2.3.2"
     type-is "~1.6.15"
 
-bonjour@^3.5.0:
+bonjour@resin-io/bonjour:
   version "3.5.0"
-  resolved "https://registry.yarnpkg.com/bonjour/-/bonjour-3.5.0.tgz#8e890a183d8ee9a2393b3844c691a42bcf7bc9f5"
+  resolved "https://codeload.github.com/resin-io/bonjour/tar.gz/31d080cee1d8a4b74e03818aaee14da8062f0ea1"
   dependencies:
     array-flatten "^2.1.0"
     deep-equal "^1.0.1"

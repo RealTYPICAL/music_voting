@@ -4,7 +4,7 @@ import * as http from "http";
 import { extendApi } from "./votingApi";
 
 const app = express();
-const bonjour = bonjourModule();
+const bonjour = bonjourModule({ multicast: true });
 
 const PORT = 3000;
 
@@ -15,6 +15,6 @@ extendApi(app);
 
 app.listen(PORT);
 
-bonjour.publish({ name: "Music Voting", type: "music-voting", port: PORT });
+bonjour.publish({ name: "music", type: "http", port: PORT });
 
 console.log("Now setup.");

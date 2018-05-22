@@ -19,6 +19,7 @@
     "underscore": "^1.9.0"
   },
   "devDependencies": {
+    "@types/mdns": "^0.0.32",
     "@types/bonjour": "^3.5.5",
     "@types/express": "^4.11.1",
     "@types/ip": "0.0.30",

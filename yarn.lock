@@ -54,6 +54,12 @@
   version "0.0.30"
   resolved "https://registry.yarnpkg.com/@types/ip/-/ip-0.0.30.tgz#60c3309ce1cecdd7293245bbffc201ecb6f8c344"
 
+"@types/mdns@^0.0.32":
+  version "0.0.32"
+  resolved "https://registry.yarnpkg.com/@types/mdns/-/mdns-0.0.32.tgz#5394f33493154f919397d4b159cfd871269cc9aa"
+  dependencies:
+    "@types/node" "*"
+
 "@types/mime@*":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-2.0.0.tgz#5a7306e367c539b9f6543499de8dd519fac37a8b"

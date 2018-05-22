@@ -8,7 +8,7 @@ import { Entry } from "../src/model/entry";
 import { Vote } from "../src/vote";
 const bonjour = bonjourModule();
 
-bonjour.find( { type: "http", protocol: "tcp" }, service => {
+bonjour.find( { type: "voting", protocol: "tcp" }, service => {
     console.log("woiejfowiejfowe: " + service.name);
     console.log("fqdn: " + service.fqdn);
     console.log("stuff: " + service.referer.address + service.port);

@@ -13,7 +13,8 @@ export function extendApi(app: Express) {
     app.post("/submitEntry", (req, res) => {
         //TODO: Need to handle various data types.
         if(req.body && req.body.entry){
-            voting.submitEntry(entryFactory.createEntry(req.body.entry, getIP(req)));
+            const ip = getIP(req);
+            voting.submitEntry(entryFactory.createEntry(req.body.entry, ip));
         }
         res.send();
     });
